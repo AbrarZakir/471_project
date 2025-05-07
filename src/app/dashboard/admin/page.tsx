@@ -16,19 +16,21 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Button to go directly to Job Postings */}
-      <div>
-        <button
-          onClick={() => router.push('/dashboard/admin/jobs')}
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
-        >
-          Manage Job Postings
-        </button>
-      </div>
+    <div className="flex gap-4">
+  <button
+    onClick={() => router.push('/dashboard/admin/jobs')}
+    className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
+  >
+    Manage Job Postings
+  </button>
 
-      {/* Rest of your dashboard content */}
-      
-    </div>
+  <button
+    onClick={() => router.push('/dashboard/admin/courses')}
+    className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
+  >
+    Manage Courses
+  </button>
+</div>
+
   )
 }
