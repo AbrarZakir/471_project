@@ -1,7 +1,9 @@
 'use client'
-import { useState, useEffect } from 'react'
+
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
+import { LanguageContext } from '@/context/LanguageProvider'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -9,6 +11,9 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError]       = useState<string|null>(null)
   const [loading, setLoading]   = useState(false)
+
+  // Grab translation function from context
+  const { t } = useContext(LanguageContext)!
 
   // If already signed in, send straight to dashboard
   useEffect(() => {
@@ -54,7 +59,7 @@ export default function LoginPage() {
 
     setLoading(false)
     if (profError || !prof) {
-      setError('Could not load your profile.')
+      setError(t('couldNotLoadProfile'))
       return
     }
     router.push(prof.role === 'admin' ? '/dashboard/admin' : '/dashboard/user')
@@ -69,51 +74,64 @@ export default function LoginPage() {
           className="mx-auto h-10 w-auto"
         />
         <h2 className="mt-10 text-center text-2xl font-bold text-gray-900">
-          Sign in to your account
+          {t('signIn')}
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-900">
-              Email address
+              {t('emailAddress')}
             </label>
             <input
               id="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              type="email" required autoComplete="email"
+              type="email"
+              required
+              autoComplete="email"
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2
                          focus:border-indigo-600 focus:ring-indigo-600 sm:text-sm"
             />
           </div>
+
+          {/* Password */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-900">
-              Password
+              {t('password')}
             </label>
             <input
               id="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              type="password" required autoComplete="current-password"
+              type="password"
+              required
+              autoComplete="current-password"
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2
                          focus:border-indigo-600 focus:ring-indigo-600 sm:text-sm"
             />
           </div>
+
+          {/* Error */}
           {error && <p className="text-red-600 text-sm">{error}</p>}
+
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
             className="w-full rounded-md bg-indigo-600 px-3 py-2 text-white hover:bg-indigo-500
                        focus:outline-none focus:ring-2 focus:ring-indigo-600"
           >
-            {loading ? 'Signing in…' : 'Sign in'}
+            {loading ? t('loading') : t('signIn')}
           </button>
         </form>
+
+        {/* Footer Link */}
         <p className="mt-6 text-center text-sm text-gray-500">
-          Not a member?{' '}
+          {t('notMember')}{' '}
           <a href="/registration" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Create an account
+            {t('createAccount')}
           </a>
         </p>
       </div>

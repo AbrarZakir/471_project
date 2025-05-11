@@ -1,10 +1,15 @@
+// src/app/registration/page.tsx  (or src/app/register/page.tsx)
 'use client'
-import { useState } from 'react'
+
+import { useState, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
+import { LanguageContext } from '@/context/LanguageProvider'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { t } = useContext(LanguageContext)!
+
   const [name, setName]         = useState('')
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
@@ -35,7 +40,7 @@ export default function RegisterPage() {
       return
     }
 
-    // 3) Sign out so login page shows correctly
+    // 3) Sign out & redirect
     await supabase.auth.signOut()
     setLoading(false)
     router.push('/login')
@@ -43,21 +48,25 @@ export default function RegisterPage() {
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      {/* Logo & Heading */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Logo"
+          alt={t('logoAlt')}
           className="mx-auto h-10 w-auto"
         />
         <h2 className="mt-10 text-center text-2xl font-bold text-gray-900">
-          Create an account
+          {t('createAccount')}
         </h2>
       </div>
+
+      {/* Form */}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Full Name */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
-              Full name
+              {t('fullName')}
             </label>
             <input
               id="name"
@@ -69,9 +78,11 @@ export default function RegisterPage() {
                          focus:border-indigo-600 focus:ring-indigo-600 sm:text-sm"
             />
           </div>
+
+          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-900">
-              Email address
+              {t('emailAddress')}
             </label>
             <input
               id="email"
@@ -83,9 +94,11 @@ export default function RegisterPage() {
                          focus:border-indigo-600 focus:ring-indigo-600 sm:text-sm"
             />
           </div>
+
+          {/* Password */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-900">
-              Password
+              {t('password')}
             </label>
             <input
               id="password"
@@ -98,21 +111,25 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* Error Message */}
           {error && <p className="text-red-600 text-sm">{error}</p>}
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
             className="w-full rounded-md bg-indigo-600 px-3 py-2 text-white hover:bg-indigo-500
                        focus:outline-none focus:ring-2 focus:ring-indigo-600"
           >
-            {loading ? 'Submitting…' : 'Sign up'}
+            {loading ? t('submitting') : t('signUp')}
           </button>
         </form>
+
+        {/* Link to Sign In */}
         <p className="mt-6 text-center text-sm text-gray-500">
-          Already have an account?{' '}
+          {t('alreadyMember')}{' '}
           <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Sign in
+            {t('signIn')}
           </a>
         </p>
       </div>
