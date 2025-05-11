@@ -1,9 +1,7 @@
 'use client'
 
-import { useContext } from 'react'
-import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
-import { LanguageContext } from '@/context/LanguageProvider'
+import { useRouter } from 'next/navigation'
 
 export default function UserDashboardPage() {
   const { loading } = useAuth(['user'])
@@ -20,21 +18,22 @@ export default function UserDashboardPage() {
 
   return (
     <div className="p-6 space-y-4">
-      <p>{t('welcomeDashboard')}</p>
+      <p>Welcome to your dashboard! Here you can view your applied jobs, courses, etc.</p>
 
       <button
         onClick={() => router.push('/dashboard/user/enroll')}
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
+        className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
       >
-        {t('enrollInCourse')}
+        Enroll in a Course
       </button>
 
       <button
         onClick={() => router.push('/dashboard/user/enrollments')}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500"
+        className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500"
       >
-        {t('viewEnrolledCourses')}
+        View Enrolled Courses
       </button>
+
     </div>
   )
 }
