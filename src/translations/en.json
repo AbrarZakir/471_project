@@ -11,6 +11,7 @@
     "email": "Email",
     "phone": "Phone",
     "address": "Address",
+    "generateCV": "Generate CV",
     "newPassword": "New Password",
     "saveChanges": "Save Changes",
     "profileUpdated": "Profile updated successfully!",

@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
-import { FaUser, FaBriefcase, FaClipboardList } from 'react-icons/fa'
+import { FaUser, FaBriefcase, FaClipboardList, FaFileAlt} from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
 import { LanguageContext } from '@/context/LanguageProvider'
@@ -45,6 +45,12 @@ export default function UserDashboardPage() {
       >
         <FaBriefcase /> {t('applyForJobs')}
       </button>
+      <button
+          onClick={() => router.push('/dashboard/user/feedback')}
+          className="fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-purple-500"
+        >
+          Feedback
+        </button>
 
       <button
         onClick={() => router.push('/dashboard/user/applications')}
@@ -52,6 +58,13 @@ export default function UserDashboardPage() {
       >
         <FaBriefcase /> {t('myApplications')}
       </button>
+      {/* ——— New CV Generator Button ——— */}
+      <button
+          onClick={() => router.push('/dashboard/user/cv')}
+          className="flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-500"
+        >
+          <FaFileAlt /> {t('generateCV')}
+        </button>
     </div>
   )
 }
