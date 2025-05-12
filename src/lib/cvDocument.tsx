@@ -6,32 +6,57 @@ import {
   Text,
   View,
   StyleSheet,
-  Font,
 } from '@react-pdf/renderer'
 
-// Register a font if you want custom (optional)
-// Font.register({ family: 'Roboto', src: 'https://...' })
-
 const styles = StyleSheet.create({
-  page: { padding: 30, fontSize: 12, fontFamily: 'Helvetica' },
-  header: { fontSize: 20, textAlign: 'center', marginBottom: 10 },
-  section: { marginBottom: 10 },
-  titleRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  bold: { fontWeight: 'bold' },
+  page: {
+    padding: 30,
+    fontSize: 12,
+    fontFamily: 'Helvetica',
+    backgroundColor: '#ffffff',
+  },
+  header: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  section: {
+    marginBottom: 10,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
 })
 
-type Experience = { company:string; title:string; from:string; to:string; desc:string }
-type Education  = { school:string; degree:string; from:string; to:string }
+type Experience = {
+  company: string
+  title:   string
+  from:    string
+  to:      string
+  desc:    string
+}
+
+type Education = {
+  level:  'SSC' | 'HSC' | 'O-Levels' | 'A-Levels' | string
+  school: string
+  degree: string
+  from:   string
+  to:     string
+}
 
 export type CVData = {
-  name: string
-  email: string
-  phone: string
-  address: string
-  summary: string
-  experiences: Experience[]
-  educations: Education[]
-  skills: string[]
+  name:           string
+  email:          string
+  phone:          string
+  address:        string
+  summary:        string
+  experiences:    Experience[]
+  educations:     Education[]
+  skills:         string[]
   certifications: string[]
 }
 
@@ -41,7 +66,9 @@ export function CVDocument(data: CVData) {
       <Page style={styles.page}>
         {/* Header */}
         <Text style={styles.header}>{data.name}</Text>
-        <Text>{data.email} | {data.phone} | {data.address}</Text>
+        <Text>
+          {data.email}   |   {data.phone}   |   {data.address}
+        </Text>
 
         {/* Summary */}
         <View style={styles.section}>
@@ -69,7 +96,9 @@ export function CVDocument(data: CVData) {
           {data.educations.map((ed, i) => (
             <View key={i} style={{ marginTop: 4 }}>
               <View style={styles.titleRow}>
-                <Text>{ed.degree}, {ed.school}</Text>
+                <Text>
+                  {ed.level ? `${ed.level} — ` : ''}{ed.degree}, {ed.school}
+                </Text>
                 <Text>{ed.from} – {ed.to}</Text>
               </View>
             </View>
@@ -82,7 +111,7 @@ export function CVDocument(data: CVData) {
           <Text>{data.skills.join(', ')}</Text>
         </View>
 
-        {/* Certifications */}
+        {/* Certifications & Projects */}
         <View style={styles.section}>
           <Text style={styles.bold}>Certifications & Projects</Text>
           <Text>{data.certifications.join(', ')}</Text>
