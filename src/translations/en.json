@@ -34,6 +34,8 @@
   "cancel":               "Cancel",
   "processing":           "Processing…",
   "payNow":               "Pay Now",
-  "paymentSuccess":       "Payment successful!"
+  "paymentSuccess":       "Payment successful!",
+  "applyForJobs": "Apply for Jobs",
+  "myApplications": "My Applications"
   }
   

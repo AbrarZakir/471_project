@@ -1,8 +1,9 @@
 'use client'
 
 import { useContext } from 'react'
-import useAuth from '@/hooks/useAuth'
+import { FaUser, FaBriefcase, FaClipboardList } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
+import useAuth from '@/hooks/useAuth'
 import { LanguageContext } from '@/context/LanguageProvider'
 
 export default function UserDashboardPage() {
@@ -19,21 +20,37 @@ export default function UserDashboardPage() {
   }
 
   return (
-    <div className="p-6 space-y-4">
-      <p>{t('welcomeDashboard')}</p>
+    <div className="p-6 space-y-4 relative min-h-screen">
+      <p className="flex items-center gap-2 text-lg font-medium">
+        <FaUser /> {t('welcomeDashboard')}
+      </p>
 
       <button
         onClick={() => router.push('/dashboard/user/enroll')}
         className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
       >
-        {t('enrollInCourse')}
+        <FaClipboardList /> {t('enrollInCourse')}
       </button>
 
       <button
         onClick={() => router.push('/dashboard/user/enrollments')}
         className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500"
       >
-        {t('viewEnrolledCourses')}
+        <FaClipboardList /> {t('viewEnrolledCourses')}
+      </button>
+
+      <button
+        onClick={() => router.push('/dashboard/user/apply')}
+        className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
+      >
+        <FaBriefcase /> {t('applyForJobs')}
+      </button>
+
+      <button
+        onClick={() => router.push('/dashboard/user/applications')}
+        className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500"
+      >
+        <FaBriefcase /> {t('myApplications')}
       </button>
     </div>
   )
